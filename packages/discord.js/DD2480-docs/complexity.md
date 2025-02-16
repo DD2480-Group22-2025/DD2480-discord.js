@@ -11,7 +11,6 @@ The top 5 cyclomatic complex functions were:
       53     34    290      1     105 _patch@27-131@.\packages\discord.js\src\structures\VoiceState.js
       53     30    303      1     121 _patch@27-147@.\packages\discord.js\src\structures\Attachment.js
 
-
 ## Cyclomatic complexity
 
 for 5 functions, state the cyclomatic complexity here and each person answer these questions.
@@ -32,6 +31,12 @@ third member if the two counts differ.
 
 ### \src\structures\ApplicationCommand.js: equals - Jacob
 
-### \src\structures\ThreadChannel.jsL \_patch - Phoebe
+### \src\structures\ThreadChannel.js: \_patch - Phoebe
+
+The reported cyclomatic complexity from the lizard analysis for the patch function in ThreadChannel.js is 55. From my manual calculations, I used the equation M = E - N + 2(P) where M is the complexity, E is num of edges, N is num of nodes, and P is num of different connectors. I found M = 72 - 36 + 2 = 38 which is a very different number than found by the lizard module.
+
+For the cyclomatic complexity from lizard for the patch function in Guild.js, it was 81. From my manual calculations using the equation above, I found that this function had a complexity of 62.
+
+I think that manually calculating the complexity was quite difficult and tedious. The documentation online did not give a clear way to calculate it and it would be easier to calculate with a tool.
 
 ### \src\structures\Guild.js: \_patch - Samuel
