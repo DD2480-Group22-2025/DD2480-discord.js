@@ -9,6 +9,8 @@ const { DiscordjsRangeError, ErrorCodes } = require('../errors/index.js');
 const { GuildMessageManager } = require('../managers/GuildMessageManager.js');
 const { ThreadMemberManager } = require('../managers/ThreadMemberManager.js');
 const { ChannelFlagsBitField } = require('../util/ChannelFlagsBitField.js');
+const BRANCH_COVERAGE = {};
+const TOTAL_BRANCHES = 1;
 
 /**
  * Represents a thread channel on Discord.
@@ -52,19 +54,29 @@ class ThreadChannel extends BaseChannel {
   }
 
   _patch(data) {
+    for (let i = 0; i < TOTAL_BRANCHES; i++) {
+      BRANCH_COVERAGE[i] = 0;
+      // Print the branch coverage to a file
+    }
+
     super._patch(data);
 
-    if ('message' in data) this.messages._add(data.message);
+    if ('message' in data) {
+      // BRANCH_COVERAGE[0]++;
+      this.messages._add(data.message);
+    }
 
     if ('name' in data) {
       /**
        * The name of the thread
        * @type {string}
        */
+      // BRANCH_COVERAGE[1]++;
       this.name = data.name;
     }
 
     if ('guild_id' in data) {
+      // BRANCH_COVERAGE[2]++;
       this.guildId = data.guild_id;
     }
 
@@ -73,8 +85,11 @@ class ThreadChannel extends BaseChannel {
        * The id of the parent channel of this thread
        * @type {?Snowflake}
        */
+      // BRANCH_COVERAGE[3]++;
       this.parentId = data.parent_id;
     } else {
+      // BRANCH_COVERAGE[4]++;
+
       this.parentId ??= null;
     }
 
@@ -83,6 +98,7 @@ class ThreadChannel extends BaseChannel {
        * Whether the thread is locked
        * @type {?boolean}
        */
+      // BRANCH_COVERAGE[5]++;
       this.locked = data.thread_metadata.locked ?? false;
 
       /**
@@ -115,9 +131,11 @@ class ThreadChannel extends BaseChannel {
 
       if ('create_timestamp' in data.thread_metadata) {
         // Note: this is needed because we can't assign directly to getters
+        BRANCH_COVERAGE[6]++;
         this._createdTimestamp = Date.parse(data.thread_metadata.create_timestamp);
       }
     } else {
+      BRANCH_COVERAGE[7]++;
       this.locked ??= null;
       this.archived ??= null;
       this.autoArchiveDuration ??= null;
