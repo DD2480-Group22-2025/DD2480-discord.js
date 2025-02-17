@@ -19,4 +19,4 @@ use this document above, and make sure to install pnpm beforehand.
   The build concluded automatically without errors, when using pnpm as the package manager.
 
 - How well do examples and tests run on your system(s)?
-  Running `pnpm run test` ran 27 tests that were all successful. Amazing!
+  Running `pnpm run test` ran 27 tasks that were all successful. Amazing!
