@@ -175,6 +175,100 @@ const updateRulesChannelId = (obj, data) => {
   }
 };
 
+const updatePublicUpdatesChannelId = (obj, data) => {
+  if ('public_updates_channel_id' in data) {
+    obj.publicUpdatesChannelId = data.public_updates_channel_id;
+  }
+};
+
+const updatePreferredLocale = (obj, data) => {
+  if ('preferred_locale' in data) {
+    obj.preferredLocale = data.preferred_locale;
+  }
+};
+
+const updateSafetyAlertsChannelId = (obj, data) => {
+  if ('safety_alerts_channel_id' in data) {
+    obj.safetyAlertsChannelId = data.safety_alerts_channel_id;
+  } else {
+    obj.safetyAlertsChannelId ??= null;
+  }
+};
+
+const updateClientChannelsIfDataExists = (obj, data) => {
+  if (data.channels) {
+    obj.channels.cache.clear();
+    for (const rawChannel of data.channels) {
+      obj.client.channels._add(rawChannel, obj);
+    }
+  }
+};
+
+const updateClientChannelsIfThreadsExists = (obj, data) => {
+  if (obj.threads) {
+    obj.threads.cache.clear();
+    for (const rawThread of data.threads) {
+      obj.client.channels._add(rawThread, obj);
+    }
+  }
+};
+
+const updateRoles = (obj, data) => {
+  if (data.roles) {
+    obj.roles.cache.clear();
+    for (const role of data.roles) obj.roles._add(role);
+  }
+};
+
+const updateMembers = (obj, data) => {
+  if (data.members) {
+    obj.members.cache.clear();
+    for (const guildUser of data.members) obj.members._add(guildUser);
+  }
+};
+
+const updateOwnerId = (obj, data) => {
+  if ('owner_id' in data) {
+    obj.ownerId = data.owner_id;
+  }
+};
+
+const updatePresences = (obj, data) => {
+  if (data.presences) {
+    obj.presences.cache.clear();
+    for (const presence of data.presences) obj.presences._add(presence);
+  }
+};
+
+const updateStageInstances = (obj, data) => {
+  if (data.stage_instances) {
+    obj.stageInstances.cache.clear();
+    for (const stageInstance of data.stage_instances) obj.stageInstances._add(stageInstance);
+  }
+};
+
+const updateScheduledEvents = (obj, data) => {
+  if (data.guild_scheduled_events) {
+    obj.scheduledEvents.cache.clear();
+    for (const scheduledEvent of data.guild_scheduled_events) obj.scheduledEvents._add(scheduledEvent);
+  }
+};
+
+const updateVoiceStates = (obj, data) => {
+  if (data.voice_states) {
+    obj.voiceStates.cache.clear();
+    for (const voiceState of data.voice_states) obj.voiceStates._add(voiceState);
+  }
+};
+
+const updateIncidentsData = (obj, data) => {
+  if ('incidents_data' in data) {
+    obj.incidentsData = _transformAPIIncidentsData(data.incidents_data);
+  } else {
+    obj.incidentsData ??= null;
+  }
+};
+
 class Guild {
   constructor() {}
 
@@ -216,103 +310,18 @@ class Guild {
     this.vanityURLUses ??= null;
 
     updateRulesChannelId(this, data);
-
-    if ('public_updates_channel_id' in data) {
-      bc.cover(36);
-      /**
-       * The community updates channel's id for the guild
-       * @type {?Snowflake}
-       */
-      this.publicUpdatesChannelId = data.public_updates_channel_id;
-    }
-
-    if ('preferred_locale' in data) {
-      bc.cover(37);
-      /**
-       * The preferred locale of the guild, defaults to `en-US`
-       * @type {Locale}
-       */
-      this.preferredLocale = data.preferred_locale;
-    }
-
-    if ('safety_alerts_channel_id' in data) {
-      bc.cover(38);
-      /**
-       * The safety alerts channel's id for the guild
-       * @type {?Snowflake}
-       */
-      this.safetyAlertsChannelId = data.safety_alerts_channel_id;
-    } else {
-      bc.cover(39);
-      this.safetyAlertsChannelId ??= null;
-    }
-
-    if (data.channels) {
-      bc.cover(40);
-      this.channels.cache.clear();
-      for (const rawChannel of data.channels) {
-        this.client.channels._add(rawChannel, this);
-      }
-    }
-
-    if (data.threads) {
-      bc.cover(41);
-      for (const rawThread of data.threads) {
-        this.client.channels._add(rawThread, this);
-      }
-    }
-
-    if (data.roles) {
-      bc.cover(42);
-      this.roles.cache.clear();
-      for (const role of data.roles) this.roles._add(role);
-    }
-
-    if (data.members) {
-      bc.cover(43);
-      this.members.cache.clear();
-      for (const guildUser of data.members) this.members._add(guildUser);
-    }
-
-    if ('owner_id' in data) {
-      bc.cover(44);
-      /**
-       * The user id of this guild's owner
-       * @type {Snowflake}
-       */
-      this.ownerId = data.owner_id;
-    }
-
-    if (data.presences) {
-      bc.cover(45);
-      for (const presence of data.presences) {
-        this.presences._add(Object.assign(presence, { guild: this }));
-      }
-    }
-
-    if (data.stage_instances) {
-      bc.cover(46);
-      this.stageInstances.cache.clear();
-      for (const stageInstance of data.stage_instances) {
-        this.stageInstances._add(stageInstance);
-      }
-    }
-
-    if (data.guild_scheduled_events) {
-      bc.cover(47);
-      this.scheduledEvents.cache.clear();
-      for (const scheduledEvent of data.guild_scheduled_events) {
-        this.scheduledEvents._add(scheduledEvent);
-      }
-    }
-
-    if (data.voice_states) {
-      bc.cover(48);
-      this.voiceStates.cache.clear();
-      for (const voiceState of data.voice_states) {
-        this.voiceStates._add(voiceState);
-      }
-    }
+    updatePublicUpdatesChannelId(this, data);
+    updatePreferredLocale(this, data);
+    updateSafetyAlertsChannelId(this, data);
+    updateClientChannelsIfDataExists(this, data);
+    updateClientChannelsIfThreadsExists(this, data);
+    updateRoles(this, data);
+    updateMembers(this, data);
+    updateOwnerId(this, data);
+    updatePresences(this, data);
+    updateStageInstances(this, data);
+    updateScheduledEvents(this, data);
+    updateVoiceStates(this, data);
 
     if (!this.emojis) {
       bc.cover(49);
@@ -348,28 +357,7 @@ class Guild {
       });
     }
 
-    if ('incidents_data' in data) {
-      bc.cover(53);
-      /**
-       * Incident actions of a guild.
-       * @typedef {Object} IncidentActions
-       * @property {?Date} invitesDisabledUntil When invites would be enabled again
-       * @property {?Date} dmsDisabledUntil When direct messages would be enabled again
-       * @property {?Date} dmSpamDetectedAt When direct message spam was detected
-       * @property {?Date} raidDetectedAt When a raid was detected
-       */
-
-      /**
-       * The incidents data of this guild.
-       * <info>You will need to fetch the guild using {@link BaseGuild#fetch} if you want to receive
-       * this property.</info>
-       * @type {?IncidentActions}
-       */
-      this.incidentsData = data.incidents_data && _transformAPIIncidentsData(data.incidents_data);
-    } else {
-      bc.cover(54);
-      this.incidentsData ??= null;
-    }
+    updateIncidentsData(this, data);
   }
 }
 
