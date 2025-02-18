@@ -28,13 +28,14 @@ not permanent. The simplest method for this is as follows:
 
 There is an automated testing suite for discordjs, but it doesn't cover any of the functions that we are analysing. Therefore, we can't compare the results, and have decided to create our own mini-suite to test the functions.
 
+
 ### \src\structures\Attachment.js: \_patch - Carl
 
 ### \src\structures\VoiceState.js: \_patch - Klara
 
 ### \src\structures\ApplicationCommand.js: equals - Jacob
 
-### \src\structures\ThreadChannel.jsL \_patch - Phoebe
+### \src\structures\ThreadChannel.js: \_patch - Phoebe
 
 ### \src\structures\Guild.js: \_patch - Samuel
 
@@ -64,7 +65,7 @@ Having identified “weak spots” in coverage, try to improve coverage with add
 
 ### \src\structures\ApplicationCommand.js: equals - Jacob
 
-### \src\structures\ThreadChannel.jsL \_patch - Phoebe
+### \src\structures\ThreadChannel.js: \_patch - Phoebe
 
 ### \src\structures\Guild.js: \_patch - Samuel
 
@@ -78,6 +79,6 @@ Is the high complexity you identified really necessary? Is it possible to split 
 
 ### \src\structures\ApplicationCommand.js: equals - Jacob
 
-### \src\structures\ThreadChannel.jsL \_patch - Phoebe
+### \src\structures\ThreadChannel.js: \_patch - Phoebe
 
 ### \src\structures\Guild.js: \_patch - Samuel
