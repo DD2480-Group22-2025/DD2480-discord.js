@@ -5,6 +5,9 @@
  * This function checks the branch coverage of the patch function in the ThreadChannel class.
  */
 
+const BRANCH_COVERAGE = {};
+const TOTAL_BRANCHES = 16;
+
 function _patch(data) {
   super._patch(data);
 
