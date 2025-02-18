@@ -9,8 +9,6 @@ const { DiscordjsRangeError, ErrorCodes } = require('../errors/index.js');
 const { GuildMessageManager } = require('../managers/GuildMessageManager.js');
 const { ThreadMemberManager } = require('../managers/ThreadMemberManager.js');
 const { ChannelFlagsBitField } = require('../util/ChannelFlagsBitField.js');
-const BRANCH_COVERAGE = {};
-const TOTAL_BRANCHES = 16;
 
 /**
  * Represents a thread channel on Discord.
@@ -54,29 +52,19 @@ class ThreadChannel extends BaseChannel {
   }
 
   _patch(data) {
-    for (let i = 0; i < TOTAL_BRANCHES; i++) {
-      BRANCH_COVERAGE[i] = 0;
-      // Print the branch coverage to a file
-    }
-
     super._patch(data);
 
-    if ('message' in data) {
-      BRANCH_COVERAGE[0]++;
-      this.messages._add(data.message);
-    }
+    if ('message' in data) this.messages._add(data.message);
 
     if ('name' in data) {
       /**
        * The name of the thread
        * @type {string}
        */
-      BRANCH_COVERAGE[1]++;
       this.name = data.name;
     }
 
     if ('guild_id' in data) {
-      BRANCH_COVERAGE[2]++;
       this.guildId = data.guild_id;
     }
 
@@ -85,7 +73,6 @@ class ThreadChannel extends BaseChannel {
        * The id of the parent channel of this thread
        * @type {?Snowflake}
        */
-      BRANCH_COVERAGE[3]++;
       this.parentId = data.parent_id;
     } else {
       this.parentId ??= null;
@@ -96,7 +83,6 @@ class ThreadChannel extends BaseChannel {
        * Whether the thread is locked
        * @type {?boolean}
        */
-      BRANCH_COVERAGE[4]++;
       this.locked = data.thread_metadata.locked ?? false;
 
       /**
@@ -105,12 +91,7 @@ class ThreadChannel extends BaseChannel {
        * <info>This property is always `null` in public threads.</info>
        * @type {?boolean}
        */
-      if (this.type === ChannelType.PrivateThread) {
-        BRANCH_COVERAGE[5]++;
-        this.invitable = data.thread_metadata.invitable ?? false;
-      } else {
-        this.invitable ??= null;
-      }
+      this.invitable = this.type === ChannelType.PrivateThread ? (data.thread_metadata.invitable ?? false) : null;
 
       /**
        * Whether the thread is archived
@@ -134,7 +115,6 @@ class ThreadChannel extends BaseChannel {
 
       if ('create_timestamp' in data.thread_metadata) {
         // Note: this is needed because we can't assign directly to getters
-        BRANCH_COVERAGE[6]++;
         this._createdTimestamp = Date.parse(data.thread_metadata.create_timestamp);
       }
     } else {
@@ -145,14 +125,7 @@ class ThreadChannel extends BaseChannel {
       this.invitable ??= null;
     }
 
-    // Make this an if/else statement
-
-    if ((this.createdTimestamp ??= this.type === ChannelType.PrivateThread)) {
-      BRANCH_COVERAGE[7]++;
-      this._createdTimestamp = super.createdTimestamp;
-    } else {
-      this._createdTimestamp ??= null;
-    }
+    this._createdTimestamp ??= this.type === ChannelType.PrivateThread ? super.createdTimestamp : null;
 
     if ('last_message_id' in data) {
       /**
@@ -160,7 +133,6 @@ class ThreadChannel extends BaseChannel {
        * @type {?Snowflake}
        */
       this.lastMessageId = data.last_message_id;
-      BRANCH_COVERAGE[8]++;
     } else {
       this.lastMessageId ??= null;
     }
@@ -170,7 +142,6 @@ class ThreadChannel extends BaseChannel {
        * The timestamp when the last pinned message was pinned, if there was one
        * @type {?number}
        */
-      BRANCH_COVERAGE[9]++;
       this.lastPinTimestamp = data.last_pin_timestamp ? Date.parse(data.last_pin_timestamp) : null;
     } else {
       this.lastPinTimestamp ??= null;
@@ -181,7 +152,6 @@ class ThreadChannel extends BaseChannel {
        * The rate limit per user (slowmode) for this thread in seconds
        * @type {?number}
        */
-      BRANCH_COVERAGE[10]++;
       this.rateLimitPerUser = data.rate_limit_per_user ?? 0;
     } else {
       this.rateLimitPerUser ??= null;
@@ -194,7 +164,6 @@ class ThreadChannel extends BaseChannel {
        * If you need an approximate value higher than that, use `ThreadChannel#messages.cache.size`</info>
        * @type {?number}
        */
-      BRANCH_COVERAGE[11]++;
       this.messageCount = data.message_count;
     } else {
       this.messageCount ??= null;
@@ -207,7 +176,6 @@ class ThreadChannel extends BaseChannel {
        * `ThreadChannel#members.cache.size`</info>
        * @type {?number}
        */
-      BRANCH_COVERAGE[12]++;
       this.memberCount = data.member_count;
     } else {
       this.memberCount ??= null;
@@ -219,35 +187,23 @@ class ThreadChannel extends BaseChannel {
        * will not decrement whenever a message is deleted
        * @type {?number}
        */
-      BRANCH_COVERAGE[13]++;
       this.totalMessageSent = data.total_message_sent;
     } else {
       this.totalMessageSent ??= null;
     }
 
-    if (data.member && this.client.user) {
-      this.members._add({ user_id: this.client.user.id, ...data.member });
-      BRANCH_COVERAGE[14]++;
-    }
-    if (data.messages) {
-      BRANCH_COVERAGE[15]++;
-      for (const message of data.messages) {
-        this.messages._add(message);
-      }
-    }
+    if (data.member && this.client.user) this.members._add({ user_id: this.client.user.id, ...data.member });
+    if (data.messages) for (const message of data.messages) this.messages._add(message);
 
     if ('applied_tags' in data) {
       /**
        * The tags applied to this thread
        * @type {Snowflake[]}
        */
-      BRANCH_COVERAGE[16]++;
       this.appliedTags = data.applied_tags;
     } else {
       this.appliedTags ??= [];
     }
-
-    console.log(BRANCH_COVERAGE);
   }
 
   /**
