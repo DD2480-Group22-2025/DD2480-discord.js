@@ -53,6 +53,7 @@ const createMockSetup = () => ({
   // Initialize emojis and stickers as arrays
   emojis: [],
   stickers: [],
+
   client: {
     channels: { _add: () => {} },
     actions: {
@@ -72,6 +73,7 @@ class MockGuild extends Guild {
     // Add _add methods to emojis and stickers arrays
     this.emojis._add = emoji => this.emojis.push(emoji);
     this.stickers._add = sticker => this.stickers.push(sticker);
+
   }
 }
 
@@ -84,6 +86,7 @@ class MockGuildRefactored extends GuildRefactored {
     // Add _add methods to emojis and stickers arrays
     this.emojis._add = emoji => this.emojis.push(emoji);
     this.stickers._add = sticker => this.stickers.push(sticker);
+
   }
 }
 
@@ -181,6 +184,7 @@ function runTest(name, data) {
 // Helper function to convert snake_case to camelCase
 function toCamelCase(str) {
   return str.replace(/_([a-z])/g, g => g[1].toUpperCase());
+
 }
 
 const tests = [
