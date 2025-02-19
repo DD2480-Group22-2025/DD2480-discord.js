@@ -1,6 +1,6 @@
 # Way of working
 
-Assess your way of working (p. 58 in the Essence standard v1.2) by evaluating the checklist on p. 60: In what state are you in? Why? What are obstacles to reach the next state? How have you improved during the course, and where is more improvement possible?
+We are currently in the state \[WORKING WELL\]. Our original process for working has been adapted to better suit our needs, such as communicating and meeting more frequently and updating each other on our progress. We natrually work well together and are able to support each other in different ways. In order to continue to improve, we could do a better job at agreeing on deadlines and communicating about reaching those deadlines. As we continue to work together, we are figuring out different practices that allow us to make more progress. The next state in the Essence standards is \[RETIRED\]. We will not want to reach this state until we are done with this class and working as a group.
 
 # Development Guidelines
 
