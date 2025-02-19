@@ -6,8 +6,7 @@
  *
  * This function checks the branch coverage of the patch function in the ThreadChannel class.
  */
-const { BranchCoverage } = require('../../BranchCoverage');
-const bc = new BranchCoverage('ThreadChannelBranch.js:_patch');
+import { bc } from './thread.test.js';
 const { ChannelFlags, ChannelType, PermissionFlagsBits, Routes } = require('discord-api-types/v10');
 const { TextBasedChannel } = require('../../../src/structures/interfaces/TextBasedChannel.js');
 const { GuildMessageManager } = require('../../../src/managers/GuildMessageManager.js');
@@ -19,19 +18,14 @@ const { GuildMessageManager } = require('../../../src/managers/GuildMessageManag
  */
 class ThreadChannel {
   constructor(data) {
-    // super(guild?.client ?? client, data, false);
-
     /**
      * A manager of the messages sent to this thread
      * @type {GuildMessageManager}
      */
-    // this.messages = new GuildMessageManager(this);
     if (data) this._patch(data);
   }
 
   _patch(data) {
-    // super._patch(data);
-
     if ('message' in data) {
       this.messages._add(data.message);
       bc.cover(0);
@@ -145,10 +139,17 @@ class ThreadChannel {
        * @type {?number}
        */
       bc.cover(14);
-      this.lastPinTimestamp = data.last_pin_timestamp ? Date.parse(data.last_pin_timestamp) : null;
+
+      if (data.last_pin_timestamp) {
+        bc.cover(15);
+        this.lastPinTimestamp = Date.parse(data.last_pin_timestamp);
+      } else {
+        bc.cover(16);
+        this.lastPinTimestamp = null;
+      }
     } else {
       this.lastPinTimestamp ??= null;
-      bc.cover(15);
+      bc.cover(17);
     }
 
     if ('rate_limit_per_user' in data) {
@@ -157,10 +158,10 @@ class ThreadChannel {
        * @type {?number}
        */
       this.rateLimitPerUser = data.rate_limit_per_user ?? 0;
-      bc.cover(16);
+      bc.cover(18);
     } else {
       this.rateLimitPerUser ??= null;
-      bc.cover(17);
+      bc.cover(19);
     }
 
     if ('message_count' in data) {
@@ -171,10 +172,10 @@ class ThreadChannel {
        * @type {?number}
        */
       this.messageCount = data.message_count;
-      bc.cover(18);
+      bc.cover(20);
     } else {
       this.messageCount ??= null;
-      bc.cover(19);
+      bc.cover(21);
     }
 
     if ('member_count' in data) {
@@ -185,10 +186,10 @@ class ThreadChannel {
        * @type {?number}
        */
       this.memberCount = data.member_count;
-      bc.cover(20);
+      bc.cover(22);
     } else {
       this.memberCount ??= null;
-      bc.cover(21);
+      bc.cover(23);
     }
 
     if ('total_message_sent' in data) {
@@ -198,18 +199,18 @@ class ThreadChannel {
        * @type {?number}
        */
       this.totalMessageSent = data.total_message_sent;
-      bc.cover(22);
+      bc.cover(24);
     } else {
       this.totalMessageSent ??= null;
-      bc.cover(23);
+      bc.cover(25);
     }
 
     if (data.member && this.client.user) {
-      bc.cover(24);
+      bc.cover(26);
       this.members._add({ user_id: this.client.user.id, ...data.member });
     }
     if (data.messages) {
-      bc.cover(25);
+      bc.cover(27);
       for (const message of data.messages) {
         this.messages._add(message);
       }
@@ -220,36 +221,13 @@ class ThreadChannel {
        * The tags applied to this thread
        * @type {Snowflake[]}
        */
-      bc.cover(26);
+      bc.cover(28);
       this.appliedTags = data.applied_tags;
     } else {
-      bc.cover(27);
+      bc.cover(29);
       this.appliedTags ??= [];
     }
   }
 }
 
-let datas = {
-  name: 'phoebe',
-  guild_id: '1234',
-  parent_id: '5678',
-  thread_metadata: {
-    locked: true,
-    invitable: false,
-    archived: true,
-    auto_archive_duration: 60,
-    archive_timestamp: '2022-07-01T00:00:00.000Z',
-    create_timestamp: '2022-07-01T00:00:00.000Z',
-  },
-  last_message_id: '1234',
-  last_pin_timestamp: '2022-07-01T00:00:00.000Z',
-  rate_limit_per_user: 60,
-  message_count: 1,
-  member_count: 1,
-  total_message_sent: 1,
-  applied_tags: ['1234'],
-};
-
-bc.setTotal(27);
-const threadChannel = new ThreadChannel(datas);
-bc.report();
+export { ThreadChannel };
