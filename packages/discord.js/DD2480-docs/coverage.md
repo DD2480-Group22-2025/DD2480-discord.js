@@ -31,6 +31,9 @@ There is an automated testing suite for discordjs, but it doesn't cover any of t
 
 ### \src\structures\Attachment.js: \_patch - Carl
 
+- The branch coverage for the \_patch function in Attachment.js is 45%,
+  with 8 out of 20 covered branches.
+
 ### \src\structures\VoiceState.js: \_patch - Klara
 
 ### \src\structures\ApplicationCommand.js: equals - Jacob
