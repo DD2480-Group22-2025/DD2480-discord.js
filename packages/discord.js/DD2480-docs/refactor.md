@@ -12,6 +12,7 @@ Below we will need to show how we might make these changes (and how we implement
 ### \src\structures\Attachment.js: \_patch - Carl
 
 ### \src\structures\VoiceState.js: \_patch - Klara
+My \_patch function in VoiceState.js had an original CCN of 34. It had a very high cyclomatic complexity, driven by many conditional checks on the incoming data. To address this, I extracted each property check (e.g., 'deaf' in data, 'mute' in data, etc.) into small, single-purpose helper functions. These changes can be found in [file](../DD2480-docs/functions/VoiceState.js/patchRefactor.js). This led me to shrink the complexity to 6 and give an average CCN of 4, reducing the CCN with 82.4%. You can run lizard on this file by running `lizard .\packages\discord.js\DD2480-docs\functions\VoiceState.js`.
 
 ### \src\structures\ApplicationCommand.js: equals - Jacob
 

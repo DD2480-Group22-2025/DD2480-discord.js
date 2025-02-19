@@ -2,8 +2,6 @@ const { BranchCoverage } = require('../../BranchCoverage.js');
 const bc = new BranchCoverage('VoiceState.js:_patch');
 
 class VoiceState {
-    constructor() { }
-
     _patch(data) {
         bc.cover(1);
         if ('deaf' in data) {
