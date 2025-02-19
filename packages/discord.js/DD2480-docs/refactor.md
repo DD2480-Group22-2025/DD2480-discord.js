@@ -15,6 +15,9 @@ Below we will need to show how we might make these changes (and how we implement
 
 ### \src\structures\ApplicationCommand.js: equals - Jacob
 
+The function initially had a cyclomatic complexity (CCN) of 51. Mostly there is nothing to do to improve the function as the CCN comes from null-checks and other such precautions. The proposals are assuming some fundamental changes could be made to the rest of the code base, namely agreeing on a case convention for the project, now it needs to check for both snake and camelcase, also a huge improvement can be made if we assume all fields exist and don't have to do any null-checking. Simply removing redundant cases for whether fields are named as camel or snake case decreases CCN 42 and then removing all null-checks further decreases CCN to 13. Whether this can be done is however unclear, and it might just be a defect inherent to the language.
+
+
 ### \src\structures\ThreadChannel.js: \_patch - Phoebe
 
 My \_patch function in ThreadChannel.js had an original CCN of 55. There were many different conditional checks for what data was contained in the metadata. In order to reduce this number, I ended up splitting each of these conditional checks into their own functions. I made these changes and you can see them in this [file](../DD2480-docs/functions/thread-patch-refactor.js). By separating out each of the data checks into their own functions, I was able to reduce the CCN from 55 to 8! This created 13 new functions that all have a cyclomatic complexity of less than 11. You can run lizard on this file by running `lizard .\packages\discord.js\DD2480-docs\functions\thread-patch-refactor.js`.
