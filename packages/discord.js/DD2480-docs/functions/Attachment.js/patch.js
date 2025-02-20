@@ -1,7 +1,6 @@
-import { BranchCoverage } from '../../BranchCoverage.js';
-import { AttachmentFlagsBitField } from 'discord.js';
-const bc = new BranchCoverage('attachment.js:patch');
-class Attachment {
+
+import { bc } from './patch.test.js';
+export class Attachment {
   constructor() {}
 
   _patch(data) {
@@ -147,7 +146,3 @@ class Attachment {
   }
 }
 
-const attachment = new Attachment(null, {});
-bc.setTotal(20);
-attachment._patch({});
-bc.report();

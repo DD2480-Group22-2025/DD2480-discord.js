@@ -11,7 +11,11 @@ Below we will need to show how we might make these changes (and how we implement
 
 ### \src\structures\Attachment.js: \_patch - Carl
 
+My \_patch function in Attachment.js had an original CCN of 34. The purpose of the function was to update a bunch of
+instances of an object, which made it logical to split these actions into several smaller function. The refactored version of the \_patch function got a CCN of 3, while the smaller functions got a CCN of between 2 and 4. Lizard can be runned through `lizard .\packages\discord.js\DD2480-docs\functions\Attachment.js\patch_refactored.js`.
+
 ### \src\structures\VoiceState.js: \_patch - Klara
+My \_patch function in VoiceState.js had an original CCN of 34. It had a very high cyclomatic complexity, driven by many conditional checks on the incoming data. To address this, I extracted each property check (e.g., 'deaf' in data, 'mute' in data, etc.) into small, single-purpose helper functions. These changes can be found in [file](../DD2480-docs/functions/VoiceState.js/patchRefactor.js). This led me to shrink the complexity to 6 and give an average CCN of 4, reducing the CCN with 82.4%. You can run lizard on this file by running `lizard .\packages\discord.js\DD2480-docs\functions\VoiceState.js`.
 
 ### \src\structures\ApplicationCommand.js: equals - Jacob
 
@@ -24,4 +28,4 @@ My \_patch function in ThreadChannel.js had an original CCN of 55. There were ma
 
 ### \src\structures\Guild.js: \_patch - Samuel
 
-My \_patch function in Guild.js had a CCN of 81 to begin with. Since the function itself was quite simple, and only had a series of conditional checks/updates, I was easily able to split this logic into smaller functions. You can see the refactored code in this [file](../DD2480-docs/functions/guild-patch-refactor.js). By splitting the logic into smaller functions, I reduced the CCN from 81 to 11. This created many new atomic functions that have an average CCN of 2.9. You can run lizard on this file by running `lizard .\packages\discord.js\DD2480-docs\functions\guild-patch-refactor.js`.
+My \_patch function in Guild.js had a CCN of 81 to begin with. Since the function itself was quite simple, and only had a series of conditional checks/updates, I was easily able to split this logic into smaller functions. You can see the refactored code in this [file](../DD2480-docs/functions/Guild.js/patch_refactored.js). By splitting the logic into smaller functions, I reduced the CCN from 81 to 3, believe it or not. This created many new atomic functions that have an average CCN of 2.8. You can run lizard on this file by running `lizard .\packages\discord.js\DD2480-docs\functions\Guild.js\patch_refactored.js`.
