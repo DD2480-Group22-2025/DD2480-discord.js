@@ -23,7 +23,7 @@ Functions assigned to each group member:
 ### \src\structures\VoiceState.js: \_patch - Klara
 
 - Carl's count: 23
-- Klara's count: 34
+- Klara's count: 11
 
 ### \src\structures\ApplicationCommand.js: equals - Jacob
 

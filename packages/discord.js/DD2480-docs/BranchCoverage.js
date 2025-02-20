@@ -34,5 +34,6 @@ export class BranchCoverage {
     console.log(`Uncovered branches: ${this.getUncoveredBranches().join(', ')}`);
     const coverage = (this.coveredBranches.size / this.totalBranches) * 100;
     console.log(`Coverage: ${coverage.toFixed(2)}% (${this.coveredBranches.size}/${this.totalBranches} branches)\n`);
+    
   }
 }
