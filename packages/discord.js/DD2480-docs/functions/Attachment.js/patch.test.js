@@ -119,7 +119,7 @@ const tests = [
 ];
 
 // Display the logged coverage results
-console.log('Running Guild._patch coverage tests...\n');
+console.log('Running Attachment._patch coverage tests...\n');
 tests.forEach(test => runTest(test.name, test.data, test.expectedOutput, test.message));
 console.log('\n');
 console.log(`${GREEN}Original version coverage:${RESET}`);
