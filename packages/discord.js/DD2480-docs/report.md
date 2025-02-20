@@ -155,14 +155,6 @@ My \_patch function in Guild.js had a CCN of 81 to begin with. Since the functio
 
 - There is an automated testing suite for discordjs, but it doesn't cover any of the functions that we are analysing. Therefore, we can't compare the results, and have decided to create our own mini-suite to test the functions.
 
-### \src\structures\VoiceState.js: \_patch - Klara
-
-### \src\structures\ApplicationCommand.js: equals - Jacob
-
-### \src\structures\ThreadChannel.js: \_patch - Phoebe
-
-### \src\structures\Guild.js: \_patch - Samuel
-
 ## Coverage improvement
 
 - In the five functions with high cyclomatic complexity, what is the current branch coverage? Is branch coverage
@@ -172,20 +164,27 @@ None of the \_patch functions have any branch coverage at all, so the coverage i
 
 ### \src\structures\Attachment.js: \_patch - Carl
 
-- The branch coverage for the \_patch function in Attachment.js is 45%,
-  with 8 out of 20 covered branches.
+Coverage: 100.00% (20/20 branches)
 
 ### \src\structures\VoiceState.js: \_patch - Klara
 
+Coverage: 100.00% (21/21 branches)
+
 ### \src\structures\ApplicationCommand.js: equals - Jacob
+
+Coverage: 100.00% (5/5 branches)
 
 ### \src\structures\ThreadChannel.js: \_patch - Phoebe
 
+Coverage: 86.21% (25/29 branches)
+
 ### \src\structures\Guild.js: \_patch - Samuel
+
+Coverage: 85.19% (46/54 branches)
 
 ## Way of working
 
-We are currently in the state \[WORKING WELL\]. Our original process for working has been adapted to better suit our needs, such as communicating and meeting more frequently and updating each other on our progress. We natrually work well together and are able to support each other in different ways. In order to continue to improve, we could do a better job at agreeing on deadlines and communicating about reaching those deadlines. As we continue to work together, we are figuring out different practices that allow us to make more progress. The next state in the Essence standards is \[RETIRED\]. We will not want to reach this state until we are done with this class and working as a group.
+We are currently in the state **WORKING WELL**. Our original process for working has been adapted to better suit our needs, such as communicating and meeting more frequently and updating each other on our progress. We natrually work well together and are able to support each other in different ways. In order to continue to improve, we could do a better job at agreeing on deadlines and communicating about reaching those deadlines. As we continue to work together, we are figuring out different practices that allow us to make more progress. The next state in the Essence standards is **RETIRED**. We will not want to reach this state until we are done with this class and working as a group.
 
 ## Development Guidelines
 
