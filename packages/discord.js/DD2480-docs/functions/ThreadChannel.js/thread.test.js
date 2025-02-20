@@ -1,4 +1,4 @@
-import { ThreadChannel } from './ThreadChannelBranch';
+import { ThreadChannel } from './ThreadChannelBranch.js';
 import { BranchCoverage } from '../../BranchCoverage.js';
 
 // contains all fields

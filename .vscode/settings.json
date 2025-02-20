@@ -31,8 +31,5 @@
 	"deno.enablePaths": ["./packages/create-discord-bot/template/Deno"],
 	"deno.lint": false,
 	"deno.unstable": false,
-	"deno.config": "./packages/create-discord-bot/template/Deno/deno.jsonc",
-	"[javascript]": {
-		"editor.defaultFormatter": "vscode.typescript-language-features"
-	}
+	"deno.config": "./packages/create-discord-bot/template/Deno/deno.jsonc"
 }
