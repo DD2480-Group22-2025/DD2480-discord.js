@@ -1,14 +1,12 @@
 'use strict';
 const { BranchCoverage } = require('../../BranchCoverage.js');
 
-// Coverage for the original version
 const bcOrig = new BranchCoverage('VoiceState.js:_patchOriginal');
 bcOrig.setTotal(21);
 
 class VoiceStateOriginal {
   _patch(data) {
     bcOrig.cover(1);
-
     if ('deaf' in data) {
       bcOrig.cover(2);
       this.serverDeaf = data.deaf;
@@ -57,6 +55,7 @@ class VoiceStateOriginal {
       this.sessionId ??= null;
     }
 
+    // Update streaming based on presence of 'self_video'
     if ('self_video' in data) {
       bcOrig.cover(14);
       this.streaming = data.self_stream ?? false;
@@ -89,22 +88,15 @@ class VoiceStateOriginal {
       bcOrig.cover(21);
       this.requestToSpeakTimestamp ??= null;
     }
-
     return this;
   }
 }
 
-// Export the class + coverage object
-module.exports = {
-  VoiceStateOriginal,
-  bcOrig,
-};
+module.exports = { VoiceStateOriginal, bcOrig };
 
-// If this file is run directly from the CLI, do a quick test:
 if (require.main === module) {
-  // Example usage
-  console.log('Running patch.js standalone...');
+  console.log('Running VoiceStateOriginal standalone...');
   const vs = new VoiceStateOriginal();
   vs._patch({ deaf: true });
-  bcOrig.report(); // Print coverage after one call
+  bcOrig.report();
 }
