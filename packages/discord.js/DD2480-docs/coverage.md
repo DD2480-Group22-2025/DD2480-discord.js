@@ -70,6 +70,8 @@ I managed to achieve 100% coverage.
 
 ### \src\structures\ApplicationCommand.js: equals - Jacob
 
+Initiially, the coverage of the function was 0. It was furthermore quite hard to measure since most of the CCN came from ternary statements and disjunctions in the big if-statement. These were impossible to measure with our DYI-tool without rewriting the function into multiple seperate if-statements. As such the result might not be very telling, but the coverage was still increased from 0 to 80 % meaning that the code inside 4 of 5 if-statments are checked. 
+
 ### \src\structures\ThreadChannel.js: \_patch - Phoebe
 
 This function had no testing already created so we needed to create our own testing environment and tests for the function. This meant that the coverage was 0 and could only be increased from there.
