@@ -1,22 +1,24 @@
 const { BranchCoverage } = require('../../BranchCoverage.js');
 const bc = new BranchCoverage('guild.js:patch');
 
-'use strict';
+('use strict');
 
 const { DiscordSnowflake } = require('@sapphire/snowflake');
 const { ApplicationCommandOptionType } = require('discord-api-types/v10');
 const isEqual = require('fast-deep-equal');
-const { Base } = require('../../../src/structures/Base.js');
-const { ApplicationCommandPermissionsManager } = require('../../../src/managers/ApplicationCommandPermissionsManager.js');
+// const { Base } = require('../../../src/structures/Base.js');
+const {
+  ApplicationCommandPermissionsManager,
+} = require('../../../src/managers/ApplicationCommandPermissionsManager.js');
 const { PermissionsBitField } = require('../../../src/util/PermissionsBitField.js');
 
 /**
  * Represents an application command.
  * @extends {Base}
  */
-class ApplicationCommand extends Base {
+class ApplicationCommand {
   constructor(client, data, guild, guildId) {
-    super(client);
+    // super(client);
 
     /**
      * The command's id
@@ -365,21 +367,21 @@ class ApplicationCommand extends Base {
   equals(appCommand, enforceOptionOrder = false) {
     // If given an id, check if the id matches
     if (appCommand.id && this.id !== appCommand.id) {
-      bc.cover(1)
+      bc.cover(1);
       return false;
     }
 
     let defaultMemberPermissions = null;
 
     if ('default_member_permissions' in appCommand) {
-      bc.cover(2)
+      bc.cover(2);
       defaultMemberPermissions = appCommand.default_member_permissions
         ? new PermissionsBitField(BigInt(appCommand.default_member_permissions)).bitfield
         : null;
     }
 
     if ('defaultMemberPermissions' in appCommand) {
-      bc.cover(3)
+      bc.cover(3);
       defaultMemberPermissions =
         appCommand.defaultMemberPermissions !== null
           ? new PermissionsBitField(appCommand.defaultMemberPermissions).bitfield
@@ -405,12 +407,12 @@ class ApplicationCommand extends Base {
       !isEqual(appCommand.integrationTypes ?? appCommand.integration_types ?? [], this.integrationTypes ?? []) ||
       !isEqual(appCommand.contexts ?? [], this.contexts ?? [])
     ) {
-      bc.cover(4)
+      bc.cover(4);
       return false;
     }
 
     if (appCommand.options) {
-      bc.cover(5)
+      bc.cover(5);
       return this.constructor.optionsEqual(this.options, appCommand.options, enforceOptionOrder);
     }
     return true;
