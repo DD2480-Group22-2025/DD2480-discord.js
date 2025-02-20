@@ -25,7 +25,7 @@ let data3 = {
   name: 'command',
   description: 'some text',
   version: '1.1',
-  defaultMemberPermission: null
+  defaultMemberPermissions: null
 };
 
 // different version
@@ -40,6 +40,14 @@ let data4 = {
 // no description
 let data5 = {
   id: '1',
+  name: 'command',
+  version: '1.1',
+  default_member_permissions: null
+};
+
+// different id
+let data6 = {
+  id: '2',
   name: 'command',
   version: '1.1',
   default_member_permissions: null
@@ -65,10 +73,10 @@ class MockApplicationCommand extends ApplicationCommand {
  * @param {number} originalCoverage - the number of branches covered before the test
  * @param {boolean} res - what the test should evaluate to
  */
-function runTest(name, data1, data2, originalCoverage, res) {
+function runTest(name, firstData, secondData, originalCoverage, res) {
   console.log(name, ': Running test...');
-  const firstApplicationCommand  = new MockApplicationCommand(data1);
-  const secondApplicationCommand = new MockApplicationCommand(data2);
+  const firstApplicationCommand  = new MockApplicationCommand(firstData);
+  const secondApplicationCommand = new MockApplicationCommand(secondData);
   console.log(bc)
   console.log(`${bc.coveredBranches.size - originalCoverage} new branches covered!`);
 
@@ -88,14 +96,14 @@ function runTest(name, data1, data2, originalCoverage, res) {
 
 // Print the results of running the tests
 console.log('Running applicationCommand.equals coverage tests...\n');
-
+const beforeCoverage = bc.coveredBranches.size;
 
 // run the tests
-const beforeCoverage = bc.coveredBranches.size;
 runTest('TEST 1', data1, data2, beforeCoverage, true);
 runTest('TEST 2', data1, data3, beforeCoverage, true);
 runTest('TEST 3', data1, data4, beforeCoverage, false);
-runTest('TEST 4', data1, data5, beforeCoverage, false);
+runTest('TEST 4', data1, data5, beforeCoverage, true);
+runTest('TEST 5', data1, data6, beforeCoverage, false);
 
 console.log('\n');
 console.log(`Original version coverage:`);
