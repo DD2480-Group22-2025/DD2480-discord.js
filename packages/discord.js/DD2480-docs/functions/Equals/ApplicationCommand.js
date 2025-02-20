@@ -1,11 +1,13 @@
 ('use strict');
 
-import { bc } from './ApplicationCommand.test.js';
+import { bc } from './ApplicationCommandTest.js';
 const { DiscordSnowflake } = require('@sapphire/snowflake');
 const { ApplicationCommandOptionType } = require('discord-api-types/v10');
 const isEqual = require('fast-deep-equal');
 // const { Base } = require('../../../src/structures/Base.js');
-const { ApplicationCommandPermissionsManager } = require('../../../src/managers/ApplicationCommandPermissionsManager.js');
+const {
+  ApplicationCommandPermissionsManager,
+} = require('../../../src/managers/ApplicationCommandPermissionsManager.js');
 const { PermissionsBitField } = require('../../../src/util/PermissionsBitField.js');
 
 /**
