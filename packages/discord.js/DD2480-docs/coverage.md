@@ -69,18 +69,6 @@ I managed to achieve 100% coverage.
 
 ### \src\structures\ThreadChannel.js: \_patch - Phoebe
 
-### \src\structures\Guild.js: \_patch - Samuel
-
-# Task 3: Refactoring Plan
-
-Is the high complexity you identified really necessary? Is it possible to split up the code (in the five complex functions you have identified) into smaller units to reduce complexity? If so, how would you go about this? Document your plan.
-
-### \src\structures\Attachment.js: \_patch - Carl
-
-### \src\structures\VoiceState.js: \_patch - Klara
-
-### \src\structures\ApplicationCommand.js: equals - Jacob
-
-### \src\structures\ThreadChannel.js: \_patch - Phoebe
+This function had no testing already created so we needed to create our own testing environment and tests for the function. This meant that the coverage was 0 and could only be increased from there.
 
 ### \src\structures\Guild.js: \_patch - Samuel
